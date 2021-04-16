@@ -20,7 +20,7 @@ class GrammianImage:
             gaf = GramianAngularField(image_size=self.window_size, method='summation')
         elif self.fieldType == 'gadf':
             gaf = GramianAngularField(image_size=self.window_size, method='difference')
-        gaf = gaf.fit_transform(values)
+        gaf = gaf.fit_transform(X=values)
         # Generate Image
         fig = plt.figure(figsize=(8, 8))
         grid = ImageGrid(fig, 111,
@@ -30,7 +30,7 @@ class GrammianImage:
                          )
         images = [gaf[0], gaf[1], gaf[2], gaf[3]]
         for image, ax in zip(images, grid):
-            im = ax.imshow(image, cmap='rainbow', origin='lower')
+            ax.imshow(image, cmap='rainbow', origin='lower')
             ax.xaxis.set_visible(False)
             ax.yaxis.set_visible(False)
         ax.cax.toggle_label(False)
