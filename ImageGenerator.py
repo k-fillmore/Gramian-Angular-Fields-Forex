@@ -2,7 +2,8 @@ import matplotlib as plt
 from mpl_toolkits.axes_grid1 import ImageGrid
 from pyts.image import GramianAngularField
 
-class GrammianImage():
+
+class GrammianImage:
     def __init__(self, df, window_size, output_dir, fieldtype):
         self.df = df
         self.window_size = window_size
@@ -15,8 +16,11 @@ class GrammianImage():
         # Function Specific parameters
         index_val = self.df.index.max()
         outfile = self.output_dir + str(index_val) + '.jpeg'
-        gasf = GramianAngularField(image_size=100, method='summation')
-        X_gasf = gasf.fit_transform(values)
+        if self.fieldType == 'gasf':
+            gaf = GramianAngularField(image_size=self.window_size, method='summation')
+        elif self.fieldType == 'gadf':
+            gaf = GramianAngularField(image_size=self.window_size, method='difference')
+        gaf = gaf.fit_transform(values)
         # Generate Image
         fig = plt.figure(figsize=(8, 8))
         grid = ImageGrid(fig, 111,
@@ -24,7 +28,7 @@ class GrammianImage():
                          axes_pad=0,
                          share_all=True
                          )
-        images = [X_gasf[0], X_gasf[1], X_gasf[2], X_gasf[3]]
+        images = [gaf[0], gaf[1], gaf[2], gaf[3]]
         for image, ax in zip(images, grid):
             im = ax.imshow(image, cmap='rainbow', origin='lower')
             ax.xaxis.set_visible(False)
@@ -37,6 +41,8 @@ class GrammianImage():
             print(outfile)
         plt.savefig(outfile, optimize=True, quality=quality)
         plt.close('all')
+
+
 
     def to_numpy(self):
         df = self.df
