@@ -1,18 +1,21 @@
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import ImageGrid
 from pyts.image import GramianAngularField
+import ray
 
 
 class GrammianImage:
-    def __init__(self, df, window_size, output_dir, fieldtype):
+    def __init__(self, df, window_size, output_dir, fieldtype, quality):
         self.df = df
         self.window_size = window_size
         self.output_dir = output_dir
         self.fieldType = fieldtype
         self.debug_level = 0
-        pass
+        self.quality = quality
 
-    def generateGasf(self, values, quality):
+        pass
+    def generateGasf(self):
+        values = self.to_numpy()
         # Function Specific parameters
         index_val = self.df.index.max()
         outfile = self.output_dir + str(index_val) + '.jpeg'
@@ -39,10 +42,8 @@ class GrammianImage:
             plt.show()
         if self.debug_level == 1:
             print(outfile)
-        plt.savefig(outfile, optimize=True, quality=quality)
+        plt.savefig(outfile, pil_kwargs={'optimize': True, 'quality': self.quality})
         plt.close('all')
-
-
 
     def to_numpy(self):
         df = self.df
