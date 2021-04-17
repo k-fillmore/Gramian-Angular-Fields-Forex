@@ -15,7 +15,7 @@ dfs = select_df(df, 10)
 
 @ray.remote
 def execute_image_generator(df):
-    GrammianImage(df, 10, "./test/", "gasf", 20).generateGasf()
+    GrammianImage(df, 10, "./test/", "gasf", 20).generateGaf()
 
 for df in dfs:
     execute_image_generator.remote(df)

@@ -13,8 +13,8 @@ class GrammianImage:
         self.debug_level = 0
         self.quality = quality
 
-        pass
-    def generateGasf(self):
+
+    def generateGaf(self):
         values = self.to_numpy()
         # Function Specific parameters
         index_val = self.df.index.max()
