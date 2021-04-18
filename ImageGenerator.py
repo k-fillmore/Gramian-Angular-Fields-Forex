@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import ImageGrid
 from pyts.image import GramianAngularField
-import ray
+
 
 
 class GrammianImage:
