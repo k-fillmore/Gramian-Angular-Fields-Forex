@@ -1,8 +1,8 @@
-import ray
 import pandas as pd
-import psutil
-from utils import select_df
+import ray
+
 from ImageGenerator import GrammianImage
+from utils import select_df
 
 output_directory = "./test/"
 csv_file = 'eurusd_hour.csv'
